@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://dn3jxpmthyx0g"]
+
+[node name="Gun" type="Node2D"]

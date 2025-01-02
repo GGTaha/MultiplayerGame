@@ -1,0 +1,167 @@
+[gd_scene load_steps=23 format=3 uid="uid://cq62y8rc5j8pr"]
+
+[ext_resource type="Script" path="res://scripts/Bean.gd" id="1_x8s8k"]
+[ext_resource type="Texture2D" uid="uid://cdaqgxcmoaxks" path="res://sprites/fire.png" id="2_2c4pj"]
+[ext_resource type="PackedScene" uid="uid://dn3jxpmthyx0g" path="res://scenes/gun.tscn" id="3_hbo4y"]
+[ext_resource type="Script" path="res://scripts/gun.gd" id="5_24gyv"]
+[ext_resource type="PackedScene" uid="uid://dmfbpp25rsto0" path="res://scenes/bullet.tscn" id="5_frf27"]
+[ext_resource type="Texture2D" uid="uid://cftmu1g4lr3w4" path="res://sprites/Gun.png" id="6_1hoa0"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_50rnj"]
+light_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ankuu"]
+atlas = ExtResource("2_2c4pj")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6abd"]
+atlas = ExtResource("2_2c4pj")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iy3ti"]
+atlas = ExtResource("2_2c4pj")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2clp"]
+atlas = ExtResource("2_2c4pj")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqbbp"]
+atlas = ExtResource("2_2c4pj")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8sn5"]
+atlas = ExtResource("2_2c4pj")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ju414"]
+atlas = ExtResource("2_2c4pj")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yenq6"]
+atlas = ExtResource("2_2c4pj")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sovhv"]
+atlas = ExtResource("2_2c4pj")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c7p5o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ankuu")
+}],
+"loop": true,
+"name": &"still",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r6abd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iy3ti")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a2clp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uqbbp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8sn5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ju414")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yenq6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sovhv")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 30.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tuxl3"]
+size = Vector2(16, 26.75)
+
+[sub_resource type="Gradient" id="Gradient_ybjcv"]
+offsets = PackedFloat32Array(0, 0.696078)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_umpdd"]
+gradient = SubResource("Gradient_ybjcv")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_dm3xo"]
+light_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_466o8"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("BeanSprite:flip_h")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Gun/GunSprite:flip_h")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Gun/GunSprite:position")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
+[node name="Bean" type="CharacterBody2D"]
+script = ExtResource("1_x8s8k")
+min_jump_height = 80.0
+jump_duration = 0.4
+max_jump_amount = 2
+
+[node name="BeanSprite" type="AnimatedSprite2D" parent="."]
+z_index = 1000
+material = SubResource("CanvasItemMaterial_50rnj")
+sprite_frames = SubResource("SpriteFrames_c7p5o")
+animation = &"walk"
+frame_progress = 0.934112
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.375)
+shape = SubResource("RectangleShape2D_tuxl3")
+debug_color = Color(0.982937, 0, 0.357652, 0.42)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(4, -6)
+scale = Vector2(3, 3)
+range_layer_min = -512
+texture = SubResource("GradientTexture2D_umpdd")
+
+[node name="Gun" parent="." instance=ExtResource("3_hbo4y")]
+position = Vector2(15, 1)
+script = ExtResource("5_24gyv")
+BulletScene = ExtResource("5_frf27")
+
+[node name="RightBullet" type="Marker2D" parent="Gun"]
+position = Vector2(8, -1)
+
+[node name="GunSprite" type="Sprite2D" parent="Gun"]
+material = SubResource("CanvasItemMaterial_dm3xo")
+texture = ExtResource("6_1hoa0")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_466o8")
+visibility_update_mode = 1
+
+[node name="Label" type="Label" parent="."]
+offset_left = -86.0
+offset_top = -34.0
+offset_right = 89.0
+offset_bottom = -11.0
+text = "Player"
+horizontal_alignment = 1
